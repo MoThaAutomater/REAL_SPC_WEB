@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Pick Consulting — Coming Soon</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0a1628;
+      --blue:   #1a3a6b;
+      --accent: #2e7de9;
+      --gold:   #c8a84b;
+      --light:  #f4f6fb;
+      --white:  #ffffff;
+      --text:   #d0d8e8;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .tagline {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(46, 125, 233, 0.15);
+      border: 1px solid rgba(46, 125, 233, 0.4);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .service-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 0.5rem 1.1rem;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      border-radius: 2px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .notify-form {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .notify-form h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .notify-form p {
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+    input:focus, textarea:focus { border-color: var(--accent); }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .full-width { grid-column: 1 / -1; }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 0.75rem;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, var(--accent), #1a5cbf);
+      border: none;
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .success-msg {
+      display: none;
+      color: #5db87a;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+    }
+
+    footer {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-mark">SPC</div>
+
+    <div class="badge">🚧 &nbsp;Site Under Construction</div>
+
+    <h1>Smart Pick <span>Consulting</span></h1>
+    <p class="tagline">
+      Operational excellence, custom technology solutions,<br>
+      and credit union expertise — built for the institutions that matter.
+    </p>
+
+    <div class="services">
+      <span class="service-pill">Efficiency Consulting</span>
+      <span class="service-pill">Custom Programming</span>
+      <span class="service-pill">Credit Union Operations</span>
+      <span class="service-pill">Staff Augmentation</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="notify-form">
+      <h2>Stay in the loop</h2>
+      <p>Leave your info and we'll reach out when we launch — or sooner if you have an urgent need.</p>
+
+      <form id="contactForm">
+        <div class="form-grid">
+          <input type="text"  name="name"         placeholder="Your name"     required />
+          <input type="email" name="email"         placeholder="Email address" required />
+          <input type="text"  name="organization"  placeholder="Organization"  class="full-width" />
+          <textarea           name="note"          placeholder="Anything you'd like us to know…" class="full-width"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Notify Me →</button>
+        <p class="success-msg" id="successMsg">✓ Got it — we'll be in touch soon.</p>
+      </form>
+    </div>
+
+    <footer>© 2026 Smart Pick Consulting · smart-pick.co</footer>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn  = form.querySelector('.submit-btn');
+      const msg  = document.getElementById('successMsg');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      const payload = {
+        name:         form.name.value,
+        email:        form.email.value,
+        organization: form.organization.value,
+        note:         form.note.value,
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          form.reset();
+          msg.style.display = 'block';
+          btn.textContent = 'Sent ✓';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Notify Me →';
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
