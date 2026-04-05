@@ -2,8 +2,10 @@ name = "real-spc-web"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "public"
 
-# D1 database binding — wired in during Step 8
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "spc-contacts"
-# database_id = "FILL_IN_AFTER_D1_CREATION"
+# ── D1 Database binding ───────────────────────────────────────────────────────
+# Binding name "DB" is what the Worker references as env.DB
+# This config enables local dev via: npm run dev
+[[d1_databases]]
+binding       = "DB"
+database_name = "contact-submissions"
+database_id   = "caeffe37-42c8-4602-9b36-ebe8f7a34124"
