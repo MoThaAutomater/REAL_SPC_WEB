@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Pick Consulting — Operational Excellence for Credit Unions</title>
+  <meta name="description" content="Transform legacy Symitar data into modern dashboards and reconciliation tools. Expert Symitar support and staff augmentation for credit unions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:    { 900: '#070e1a', 800: '#0a1628', 700: '#0f1f38', 600: '#152a4a' },
+            teal:    { 400: '#7cc5c9', 500: '#3b9da5', 600: '#2d8189', 700: '#1f666d' },
+            slate:   { 300: '#c5cedb', 400: '#8b99af' },
+          },
+          fontFamily: {
+            sans:    ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Smooth parallax foundation */
+    .parallax-bg {
+      will-change: transform;
+      transition: transform 0.1s linear;
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered children */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
+    .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
+    .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
+    .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      animation: float 20s infinite ease-in-out;
+    }
+    .particle:nth-child(2) { animation-delay: -5s; animation-duration: 25s; }
+    .particle:nth-child(3) { animation-delay: -10s; animation-duration: 18s; }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -40px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* Carousel */
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .carousel-slide {
+      min-width: 100%;
+      padding: 0 1rem;
+    }
+    @media (min-width: 768px) {
+      .carousel-slide { min-width: 50%; }
+    }
+    @media (min-width: 1024px) {
+      .carousel-slide { min-width: 33.333%; }
+    }
+
+    /* Carousel dot active */
+    .dot.active {
+      background: #3b9da5;
+      width: 2rem;
+      border-radius: 9999px;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #3b9da5, #7cc5c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Form focus ring */
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3b9da5;
+      box-shadow: 0 0 0 3px rgba(59, 157, 165, 0.15);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .reveal-stagger > * { transition: none; opacity: 1; transform: none; }
+      .particle { animation: none; }
+      .parallax-bg { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #070e1a; }
+    ::-webkit-scrollbar-thumb { background: #1f666d; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b9da5; }
+  </style>
+</head>
+<body class="bg-navy-900 text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- NAVIGATION -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <span class="text-lg font-bold tracking-tight">
+          Smart Pick<span class="text-teal-500">.</span>
+        </span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#services" class="hover:text-white transition-colors">Services</a>
+        <a href="#contact" class="px-5 py-2.5 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600 transition-colors">Get in Touch</a>
+      </div>
+      <button id="menuBtn" class="md:hidden p-2 text-slate-400 hover:text-white" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-navy-800/95 backdrop-blur-lg border-t border-white/5">
+      <div class="px-6 py-6 flex flex-col gap-4 text-base font-medium">
+        <a href="#about" class="py-2 text-slate-300 hover:text-white transition-colors mobile-link">About</a>
+        <a href="#services" class="py-2 text-slate-300 hover:text-white transition-colors mobile-link">Services</a>
+        <a href="#contact" class="mt-2 px-5 py-3 bg-teal-500 text-white rounded-lg font-semibold text-center hover:bg-teal-600 transition-colors mobile-link">Get in Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background layers for parallax depth -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-navy-800 via-navy-900 to-navy-900"></div>
+      <div class="parallax-bg absolute inset-0" data-speed="0.3">
+        <div class="particle w-96 h-96 bg-teal-500 top-1/4 -left-48"></div>
+        <div class="particle w-72 h-72 bg-teal-400 bottom-1/4 right-0"></div>
+        <div class="particle w-64 h-64 bg-teal-600 top-1/2 left-1/3"></div>
+      </div>
+      <!-- Grid overlay -->
+      <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div class="reveal">
+        <img src="assets/logo.png" alt="Smart Pick Consulting" class="h-[280px] md:h-[360px] lg:h-[420px] w-auto mx-auto mb-8" />
+      </div>
+      <h1 class="reveal font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6">
+        Legacy data, <span class="gradient-text">transformed.</span><br>
+        Credit union operations, simplified.
+      </h1>
+      <p class="reveal text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        We turn chaotic legacy reports from your Symitar system into clean, actionable dashboards and reconciliation journals.
+        With over 25 years of credit union experience, we also provide expert Symitar support and reliable staff augmentation so your team can focus on members — not manual work.
+      </p>
+      <div class="reveal flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#contact" class="px-8 py-4 bg-teal-500 text-white rounded-xl font-semibold text-lg hover:bg-teal-600 transition-all hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5">
+          Book a Free Assessment
+        </a>
+        <a href="#services" class="px-8 py-4 border border-white/15 text-slate-300 rounded-xl font-semibold text-lg hover:bg-white/5 hover:border-white/25 transition-all">
+          Explore Services
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 reveal">
+      <div class="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
+        <div class="w-1 h-2.5 bg-teal-500 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / VALUE PROP -->
+  <section id="about" class="relative py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="reveal text-teal-500 font-semibold text-sm tracking-widest uppercase mb-4">Why Smart Pick Consulting</p>
+          <h2 class="reveal font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+            We don’t just advise.<br />
+            <span class="gradient-text">We transform your data and your team.</span>
+          </h2>
+          <p class="reveal text-slate-300 text-lg leading-relaxed mb-6">
+            Most consultants deliver slides and disappear. We roll up our sleeves — extracting messy legacy data from Symitar, 
+            building modern dashboards and automated reconciliation tools, and embedding expert staff until the improvements stick.
+          </p>
+          <p class="reveal text-slate-400 leading-relaxed">
+            With 25+ years serving credit unions, we speak your language and deliver measurable operational clarity.
+          </p>
+        </div>
+        <div class="reveal-stagger grid grid-cols-2 gap-4">
+          <div class="bg-navy-700/50 border border-white/5 rounded-2xl p-6 hover:border-teal-500/30 transition-colors">
+            <div class="text-3xl font-bold gradient-text mb-1">25+</div>
+            <div class="text-sm text-slate-400">Years Experience</div>
+          </div>
+          <div class="bg-navy-700/50 border border-white/5 rounded-2xl p-6 hover:border-teal-500/30 transition-colors">
+            <div class="text-3xl font-bold gradient-text mb-1">Symitar</div>
+            <div class="text-sm text-slate-400">Core Experts</div>
+          </div>
+          <div class="bg-navy-700/50 border border-white/5 rounded-2xl p-6 hover:border-teal-500/30 transition-colors">
+            <div class="text-3xl font-bold gradient-text mb-1">Data</div>
+            <div class="text-sm text-slate-400">Transformation</div>
+          </div>
+          <div class="bg-navy-700/50 border border-white/5 rounded-2xl p-6 hover:border-teal-500/30 transition-colors">
+            <div class="text-3xl font-bold gradient-text mb-1">Embedded</div>
+            <div class="text-sm text-slate-400">Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES CAROUSEL (3 focused services) -->
+  <section id="services" class="relative py-24 md:py-32 bg-navy-800/40">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="reveal text-teal-500 font-semibold text-sm tracking-widest uppercase mb-4">What We Do</p>
+        <h2 class="reveal font-display text-3xl md:text-4xl lg:text-5xl font-bold">
+          Services built for <span class="gradient-text">real impact.</span>
+        </h2>
+      </div>
+
+      <!-- Carousel container -->
+      <div class="relative reveal">
+        <div class="overflow-hidden" id="carouselWrapper">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!-- Slide 1: Data Transformation -->
+            <div class="carousel-slide">
+              <div class="bg-navy-700/60 border border-white/5 rounded-2xl p-8 md:p-10 h-full hover:border-teal-500/30 transition-all group">
+                <div class="w-14 h-14 rounded-xl bg-teal-500/10 flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
+                  <svg class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Data Transformation</h3>
+                <p class="text-slate-400 leading-relaxed mb-4">
+                  We take cluttered legacy reports from Symitar and turn them into clean, modern dashboards in Excel or Power BI. 
+                  Automated reconciliation journals, real-time insights — no more manual grunt work.
+                </p>
+                <ul class="text-sm text-slate-400 space-y-2">
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Symitar report extraction</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Power BI &amp; Excel dashboards</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Automated reconciliation tools</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 2: Symitar System Expertise -->
+            <div class="carousel-slide">
+              <div class="bg-navy-700/60 border border-white/5 rounded-2xl p-8 md:p-10 h-full hover:border-teal-500/30 transition-all group">
+                <div class="w-14 h-14 rounded-xl bg-teal-500/10 flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
+                  <svg class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Symitar System Expertise</h3>
+                <p class="text-slate-400 leading-relaxed mb-4">
+                  Deep specialists in the Symitar core banking system. We optimize your existing setup, fix pain points, 
+                  and implement best practices so your operations run smoother and more efficiently.
+                </p>
+                <ul class="text-sm text-slate-400 space-y-2">
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Symitar optimization</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Custom reporting solutions</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>NCUA compliance support</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 3: Staff Augmentation -->
+            <div class="carousel-slide">
+              <div class="bg-navy-700/60 border border-white/5 rounded-2xl p-8 md:p-10 h-full hover:border-teal-500/30 transition-all group">
+                <div class="w-14 h-14 rounded-xl bg-teal-500/10 flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
+                  <svg class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Staff Augmentation</h3>
+                <p class="text-slate-400 leading-relaxed mb-4">
+                  Need experienced help immediately? We embed seasoned credit union IT and operations professionals 
+                  who hit the ground running — all with deep Symitar knowledge and real-world experience.
+                </p>
+                <ul class="text-sm text-slate-400 space-y-2">
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Symitar-proficient talent</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>IT &amp; operations support</li>
+                  <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Flexible, rapid deployment</li>
+                </ul>
+              </div>
+            </div>
+
+          </div><!-- /carousel-track -->
+        </div><!-- /carouselWrapper -->
+
+        <!-- Carousel nav -->
+        <div class="flex items-center justify-center gap-3 mt-8">
+          <button id="prevBtn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors" aria-label="Previous slide">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <div id="dots" class="flex gap-2"></div>
+          <button id="nextBtn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors" aria-label="Next slide">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE OFFER / CTA BANNER -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-teal-700/20 via-teal-500/10 to-teal-700/20"></div>
+    <div class="parallax-bg absolute inset-0" data-speed="0.15">
+      <div class="particle w-80 h-80 bg-teal-400 top-0 right-1/4"></div>
+    </div>
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <h2 class="reveal font-display text-3xl md:text-4xl font-bold mb-4">
+        Free Symitar Data Health Check
+      </h2>
+      <p class="reveal text-slate-300 text-lg mb-8 leading-relaxed">
+        Not sure how much manual effort your legacy reports are costing you? 
+        We’ll analyze your current Symitar outputs and show you exactly where automation and modern dashboards can save time and reduce errors — completely free.
+      </p>
+      <a href="#contact" class="reveal inline-block px-8 py-4 bg-teal-500 text-white rounded-xl font-semibold text-lg hover:bg-teal-600 transition-all hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5">
+        Claim Your Free Assessment
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT / LEAD CAPTURE -->
+  <section id="contact" class="relative py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-5 gap-16">
+        <!-- Left column -->
+        <div class="lg:col-span-2">
+          <p class="reveal text-teal-500 font-semibold text-sm tracking-widest uppercase mb-4">Let's Talk</p>
+          <h2 class="reveal font-display text-3xl md:text-4xl font-bold mb-6">
+            Ready to modernize your data<br />and operations?
+          </h2>
+          <p class="reveal text-slate-400 leading-relaxed mb-8">
+            Tell us about your Symitar challenges or staffing needs. 
+            With 25+ years of credit union experience, we’ll respond quickly with practical next steps.
+          </p>
+          <div class="reveal space-y-4 text-slate-400">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-teal-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              <a href="mailto:mo@smart-pick.co" class="hover:text-white transition-colors">mo@smart-pick.co</a>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-teal-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 003 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+              <span>smart-pick.co</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="lg:col-span-3">
+          <form id="contactForm" class="reveal bg-navy-700/40 border border-white/5 rounded-2xl p-8 md:p-10" action="/api/contact" method="POST">
+            <div class="grid sm:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name <span class="text-teal-500">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Your full name"
+                  class="w-full bg-navy-900/60 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 transition-all" />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email <span class="text-teal-500">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="you@yourcu.com"
+                  class="w-full bg-navy-900/60 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 transition-all" />
+              </div>
+            </div>
+            <div class="mb-5">
+              <label for="organization" class="block text-sm font-medium text-slate-300 mb-2">Organization</label>
+              <input type="text" id="organization" name="organization" placeholder="Credit union or company name"
+                class="w-full bg-navy-900/60 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 transition-all" />
+            </div>
+            <div class="mb-6">
+              <label for="note" class="block text-sm font-medium text-slate-300 mb-2">How can we help?</label>
+              <textarea id="note" name="note" rows="4" placeholder="Tell us about your challenge or what you're looking to improve..."
+                class="w-full bg-navy-900/60 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 transition-all resize-y"></textarea>
+            </div>
+            <!-- Cloudflare Turnstile widget placeholder -->
+            <!-- <div class="cf-turnstile mb-6" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div> -->
+            <button type="submit" id="submitBtn"
+              class="w-full py-4 bg-teal-500 text-white rounded-xl font-semibold text-lg hover:bg-teal-600 transition-all hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+              Send Message
+            </button>
+            <p id="formSuccess" class="hidden mt-4 text-center text-teal-400 font-medium">
+              Message sent — we'll be in touch shortly.
+            </p>
+            <p id="formError" class="hidden mt-4 text-center text-red-400 font-medium">
+              Something went wrong. Please try again or email us directly.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <div class="flex items-center gap-2">
+        <img src="assets/logo.png" alt="Smart Pick Consulting" class="h-10 w-auto opacity-70" />
+        <span>&copy; 2026 Smart Pick Consulting</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="mailto:mo@smart-pick.co" class="hover:text-slate-300 transition-colors">mo@smart-pick.co</a>
+        <span class="text-white/10">|</span>
+        <span>smart-pick.co</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS (unchanged) -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    function onScroll() {
+      const y = window.scrollY;
+      if (y > 60) {
+        navbar.classList.add('bg-navy-900/90', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/10');
+        navbar.querySelector('div').classList.remove('py-4');
+        navbar.querySelector('div').classList.add('py-3');
+      } else {
+        navbar.classList.remove('bg-navy-900/90', 'backdrop-blur-xl', 'shadow-lg', 'shadow-black/10');
+        navbar.querySelector('div').classList.remove('py-3');
+        navbar.querySelector('div').classList.add('py-4');
+      }
+      lastScroll = y;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-stagger');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // Parallax
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const parallaxEls = document.querySelectorAll('.parallax-bg');
+      function updateParallax() {
+        const y = window.scrollY;
+        parallaxEls.forEach(el => {
+          const speed = parseFloat(el.dataset.speed) || 0.2;
+          el.style.transform = `translateY(${y * speed}px)`;
+        });
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+    }
+
+    // Carousel (unchanged)
+    const track = document.getElementById('carouselTrack');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dots');
+    let current = 0;
+    let slidesPerView = 1;
+
+    function getSlidesPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function getTotalPages() {
+      return Math.max(1, slides.length - slidesPerView + 1);
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      const pages = getTotalPages();
+      for (let i = 0; i < pages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot w-2.5 h-2.5 rounded-full bg-white/20 transition-all duration-300';
+        dot.setAttribute('aria-label', `Slide ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+      updateDots();
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll('.dot');
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+        if (i !== current) { d.style.width = ''; d.style.borderRadius = ''; }
+      });
+    }
+
+    function goTo(idx) {
+      const maxIdx = getTotalPages() - 1;
+      current = Math.max(0, Math.min(idx, maxIdx));
+      const pct = (current / slides.length) * 100;
+      track.style.transform = `translateX(-${pct}%)`;
+      updateDots();
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    function onResize() {
+      slidesPerView = getSlidesPerView();
+      if (current >= getTotalPages()) current = getTotalPages() - 1;
+      buildDots();
+      goTo(current);
+    }
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    // Touch swipe for carousel
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      }
+    }, { passive: true });
+
+    // Contact form
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formSuccess = document.getElementById('formSuccess');
+    const formError = document.getElementById('formError');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      formSuccess.classList.add('hidden');
+      formError.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const payload = {
+        name:         form.name.value.trim(),
+        email:        form.email.value.trim(),
+        organization: form.organization.value.trim(),
+        note:         form.note.value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          form.reset();
+          formSuccess.classList.remove('hidden');
+          submitBtn.textContent = 'Sent ✓';
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }, 4000);
+        } else { throw new Error(); }
+      } catch {
+        formError.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>
